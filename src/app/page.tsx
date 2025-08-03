@@ -1,4 +1,3 @@
-// src/app/page.tsx
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
@@ -35,7 +34,6 @@ export default function HomePage() {
   }
 
   return (
-    // ✨ STYLE: Updated grid for better spacing on large screens
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
       {/* Profile Sidebar (Left) */}
       <aside className="lg:col-span-1">
@@ -48,7 +46,7 @@ export default function HomePage() {
         <Feed updateTrigger={updateFeedTrigger} />
       </main>
       
-      {/* ✨ NEW: Right sidebar for a more balanced layout */}
+      {/*  Right sidebar for a more balanced layout */}
       <aside className="hidden lg:block lg:col-span-1">
         <div className="card p-4">
           <h3 className="font-bold text-lg">What&apos;s New</h3>

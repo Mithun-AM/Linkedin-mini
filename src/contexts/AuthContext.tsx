@@ -1,11 +1,9 @@
-// src/contexts/AuthContext.tsx
 'use client';
 
 import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '../../lib/api'; // We'll create a simple API wrapper
 
-// Define the shape of your user and auth context
 interface User {
   id: string;
   name: string;
@@ -21,10 +19,8 @@ interface AuthContextType {
   isLoading: boolean;
 }
 
-// Create the context with a default undefined value
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Define the props for the provider component
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -34,7 +30,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  // On initial load, check for a token and fetch user data
   useEffect(() => {
     const initializeAuth = async () => {
       const token = localStorage.getItem('token');
@@ -44,7 +39,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setUser(responseData.user);
         } catch (error) {
           console.error('Failed to fetch user', error);
-          localStorage.removeItem('token'); // Clear invalid token
+          localStorage.removeItem('token'); 
           router.push('/login');
         }
       }
@@ -74,7 +69,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 };
 
-// Custom hook to use the AuthContext
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

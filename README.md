@@ -25,6 +25,7 @@ To demonstrate advanced skills and a focus on user experience, several extra fea
 
 -   **Modern & Responsive UI**: The interface was built from the ground up with Tailwind CSS for a clean, professional, and fully responsive experience on all devices.
 -   **In-Place Profile Editing**: Users can edit their own profile information (name and bio) seamlessly through a pop-up modal without leaving the page.
+-   **Secure Post Deletion**: Users can only delete their own posts. The action is confirmed through a user-friendly modal to prevent accidental deletions, with an optimistic UI update that removes the post from the feed instantly.
 -   **Responsive Navigation**: Includes a polished hamburger menu for a smooth user experience on mobile and tablet devices.
 -   **Optimistic UI Feedback**: Features skeleton loaders during data fetching and toast notifications for user actions (login, post creation, profile updates) to provide clear and immediate feedback.
 -   **Secure API Design**: Backend API routes are protected using middleware, and security best practices are followed, such as server-side validation and preventing users from editing others' profiles.

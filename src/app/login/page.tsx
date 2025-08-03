@@ -1,4 +1,3 @@
-// src\app\login\page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -10,13 +9,11 @@ export default function LoginPage() {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  // Consolidated state for the form
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  // Single handler for all form inputs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

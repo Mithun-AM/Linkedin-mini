@@ -40,22 +40,17 @@ export default function Navbar() {
   );
 
   return (
-    // ✨ The <header> is now the root element, making it full-width.
-    // It's sticky to the very top of the page.
+
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      {/* The <nav> is now centered inside the full-width header */}
       <nav className="container mx-auto max-w-7xl px-4 flex justify-between items-center py-3">
-        {/* Brand Logo */}
         <Link href="/" className="text-2xl font-bold text-blue-600">
           LinkedIn Mini
         </Link>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-2">
           {navLinks}
         </div>
 
-        {/* Mobile Hamburger Button */}
         <div className="md:hidden">
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -67,7 +62,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t animate-in slide-in-from-top-2 duration-300">
           <div className="flex flex-col p-4 space-y-1">

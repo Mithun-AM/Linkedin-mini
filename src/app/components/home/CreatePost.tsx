@@ -1,13 +1,12 @@
-// src/components/home/CreatePost.tsx
 'use client';
 
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import toast from 'react-hot-toast';
-import api from '~/lib/api'; // The fetch wrapper
+import api from '~/lib/api'; 
 
 interface CreatePostProps {
-  onPostCreated: () => void; // Callback to refresh feed
+  onPostCreated: () => void;
 }
 
 const CreatePost = ({ onPostCreated }: CreatePostProps) => {
@@ -27,9 +26,8 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
       await api.post('/posts/create', { content });
       toast.success('Post created successfully!');
       setContent('');
-      onPostCreated(); // Trigger the feed refresh
-    } catch (error) { // ✨ FIX: 'error' is now treated as 'unknown' by default
-      // We safely check if it's a real Error object before using its message.
+      onPostCreated(); 
+    } catch (error) { 
       let errorMessage = 'Failed to create post.';
       if (error instanceof Error) {
         errorMessage = error.message;

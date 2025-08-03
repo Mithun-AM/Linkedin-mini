@@ -6,11 +6,10 @@ export async function GET() {
   await connectToDB();
 
   try {
-    // Fetch all posts, sort by newest first, populate author name
     const posts = await Post.find()
       .sort({ createdAt: -1 })
-      .populate('author', 'name') // only get author's name
-      .lean(); // convert to plain JS objects for Next.js
+      .populate('author', 'name') 
+      .lean(); 
 
     return NextResponse.json(posts, { status: 200 });
   } catch (error) {

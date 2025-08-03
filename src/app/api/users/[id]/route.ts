@@ -11,22 +11,11 @@ interface DecodedToken {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-
-    const authHeader = req.headers.get('Authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized: Missing or invalid token' }, { status: 401 });
-    }
-    const token = authHeader.split(' ')[1];
-    try {
-      jwt.verify(token, process.env.JWT_SECRET!);
-    } catch {
-      return NextResponse.json({ error: 'Unauthorized: Invalid token' }, { status: 401 });
-    }
-    
-    const userId = params.id;
+    req.clone();
+    const { id: userId } = await params;
 
     await connectToDB();
 
@@ -60,9 +49,11 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    req.clone(); 
+
     const authHeader = req.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -76,7 +67,7 @@ export async function PATCH(
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const profileId = params.id;
+    const { id: profileId } = await params;
 
     if (decoded.id !== profileId) {
       return NextResponse.json({ error: 'Forbidden: You can only edit your own profile.' }, { status: 403 });

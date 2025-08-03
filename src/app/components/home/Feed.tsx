@@ -1,9 +1,8 @@
-// src/components/home/Feed.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import Spinner from '../ui/Spinner';
-import PostCard from './PostCard'; // We'll create this next
+import PostCard from './PostCard'; 
 
 interface PostAuthor {
   _id: string;
@@ -18,13 +17,17 @@ interface Post {
 }
 
 interface FeedProps {
-  updateTrigger: number; // This prop triggers a re-fetch when it changes
+  updateTrigger: number;
 }
 
 const Feed = ({ updateTrigger }: FeedProps) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const handleDeletePost = (postId: string) => {
+    setPosts(currentPosts => currentPosts.filter(p => p._id !== postId));
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,8 +38,7 @@ const Feed = ({ updateTrigger }: FeedProps) => {
         if (!response.ok) throw new Error("Failed to fetch feed");
         const data = await response.json();
         setPosts(data);
-      } catch (error) { // ✨ FIX: 'error' is now treated as 'unknown'
-        // Safely check if it's a real Error object before using its message.
+      } catch (error) { 
         let errorMessage = 'Could not load the feed.';
         if (error instanceof Error) {
           errorMessage = error.message;
@@ -66,7 +68,7 @@ const Feed = ({ updateTrigger }: FeedProps) => {
           <p>Be the first one to share your thoughts.</p>
         </div>
       ) : (
-        posts.map((post) => <PostCard key={post._id} post={post} />)
+        posts.map((post) => <PostCard key={post._id} post={post} onDelete={handleDeletePost}/>)
       )}
     </div>
   );

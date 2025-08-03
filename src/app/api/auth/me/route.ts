@@ -1,4 +1,3 @@
-// \src\app\api\auth\me\route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import connectToDB from '../../../../../lib/db';
 import User from '../../../../../models/User';
@@ -24,13 +23,13 @@ export async function GET(req: NextRequest) {
     }
 
     const authorId = decoded.id;
-    const user = await User.findById(authorId); // Password is not selected by default
+    const user = await User.findById(authorId); 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     const userResponse = {
-      id: user._id.toString(), // Convert ObjectId to string
+      id: user._id.toString(),
       name: user.name,
       email: user.email,
       bio: user.bio,

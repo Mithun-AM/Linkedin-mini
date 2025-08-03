@@ -1,4 +1,3 @@
-// utils/decodeJWT.ts
 export function decodeJWT(token: string): { id: string } | null {
   try {
     const payload = token.split('.')[1];

@@ -12,7 +12,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Name, email, and password are required' }, { status: 400 });
     }
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json({ error: 'Email is already registered' }, { status: 409 }); // 409 Conflict is more appropriate
@@ -27,7 +26,6 @@ export async function POST(request: Request) {
       bio,
     });
 
-    // We don't want to send the password back, even if it's hashed
     const userResponse = {
       _id: newUser._id,
       name: newUser.name,
