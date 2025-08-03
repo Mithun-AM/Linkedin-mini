@@ -23,12 +23,12 @@ export default function HomePage() {
   if (!isAuthenticated) {
     return (
       <div className="text-center mt-20">
-        <h1 className="text-5xl font-bold">Welcome to ConnectU</h1>
+        <h1 className="text-5xl font-bold">LinkedIn Mini</h1>
         <p className="mt-4 text-lg text-slate-600">
           The professional community for innovators.
         </p>
         <p className="mt-2 text-slate-500">
-          Please log in to see the feed and connect with others.
+          Please log in to see the feed and post your feed.
         </p>
       </div>
     );
@@ -51,7 +51,7 @@ export default function HomePage() {
       {/* ✨ NEW: Right sidebar for a more balanced layout */}
       <aside className="hidden lg:block lg:col-span-1">
         <div className="card p-4">
-          <h3 className="font-bold text-lg">What's New</h3>
+          <h3 className="font-bold text-lg">What&apos;s New</h3>
           <p className="text-sm text-slate-500 mt-2">Stay tuned for more features like trending topics and user suggestions!</p>
         </div>
       </aside>

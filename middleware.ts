@@ -13,7 +13,7 @@ const PROTECTED_ROUTES = [
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const token = req.headers.get('authorization')?.split(' ')[1];
+  const token = req.headers.get('Authorization')?.split(' ')[1];
 
   // ✨ A simpler, more reliable check.
   const isProtectedRoute = PROTECTED_ROUTES.some(path => pathname.startsWith(path));

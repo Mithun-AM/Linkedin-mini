@@ -1,8 +1,7 @@
-// \src\app\api\users\[id]\route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import connectToDB from '../../../../../lib/db';
-import User from '../../../../../models/User';
-import Post from '../../../../../models/Post';
+import connectToDB from '~/lib/db';
+import User from '~/models/User';
+import Post from '~/models/Post';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
@@ -15,23 +14,22 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    await connectToDB();
 
     const authHeader = req.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Unauthorized: Missing or invalid token' }, { status: 401 });
     }
     const token = authHeader.split(' ')[1];
-
-    let decoded: DecodedToken;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedToken;
-    } catch (error) {
+      jwt.verify(token, process.env.JWT_SECRET!);
+    } catch {
       return NextResponse.json({ error: 'Unauthorized: Invalid token' }, { status: 401 });
     }
+    
     const userId = params.id;
 
-    // Validate MongoDB ObjectId
+    await connectToDB();
+
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
     }
@@ -60,7 +58,6 @@ export async function GET(
   }
 }
 
-// PATCH handler to update a user's profile
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { id: string } }
@@ -75,12 +72,13 @@ export async function PATCH(
     let decoded: DecodedToken;
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedToken;
-    } catch (error) {
+    } catch {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    // 🔒 SECURITY CHECK: Ensure the logged-in user can only edit their own profile
-    if (decoded.id !== params.id) {
+    const profileId = params.id;
+
+    if (decoded.id !== profileId) {
       return NextResponse.json({ error: 'Forbidden: You can only edit your own profile.' }, { status: 403 });
     }
     
@@ -92,9 +90,9 @@ export async function PATCH(
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      params.id,
+      profileId,
       { name, bio },
-      { new: true, runValidators: true } // Return the updated document
+      { new: true, runValidators: true }
     ).select('name email bio');
 
     if (!updatedUser) {
@@ -105,7 +103,6 @@ export async function PATCH(
       message: 'Profile updated successfully',
       user: updatedUser,
     });
-
   } catch (error) {
     console.error('Error updating user profile:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });

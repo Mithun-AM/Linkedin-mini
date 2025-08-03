@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     let decoded: DecodedToken;
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedToken;
-    } catch (error) {
+    } catch{
       return NextResponse.json({ error: 'Unauthorized: Invalid token' }, { status: 401 });
     }
 
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
       bio: user.bio,
     };
 
-    return NextResponse.json({ userResponse });
+    return NextResponse.json({ user: userResponse });
   } catch (error) {
     console.error('Error fetching current user:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });

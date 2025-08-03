@@ -28,7 +28,6 @@ export default function LoginPage() {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Correctly stringify the formData object
         body: JSON.stringify(formData),
       });
 
@@ -38,9 +37,13 @@ export default function LoginPage() {
       }
 
       toast.success('Logged in successfully!');
-      login(data.token, data.user); // Update global auth context
-    } catch (err: any) {
-      toast.error(err.message || 'Something went wrong.');
+      login(data.token, data.user); 
+    } catch (error) { 
+      let errorMessage = 'Something went wrong.';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -56,7 +59,6 @@ export default function LoginPage() {
             type="email"
             placeholder="Email"
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-            // Bind value to the formData state
             value={formData.email}
             onChange={handleChange}
             required
@@ -67,7 +69,6 @@ export default function LoginPage() {
             type="password"
             placeholder="Password"
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-            // Bind value to the formData state
             value={formData.password}
             onChange={handleChange}
             required

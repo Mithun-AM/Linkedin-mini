@@ -28,8 +28,13 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
       toast.success('Post created successfully!');
       setContent('');
       onPostCreated(); // Trigger the feed refresh
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to create post.');
+    } catch (error) { // ✨ FIX: 'error' is now treated as 'unknown' by default
+      // We safely check if it's a real Error object before using its message.
+      let errorMessage = 'Failed to create post.';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

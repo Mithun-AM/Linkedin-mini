@@ -3,7 +3,6 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
-import { Eye, BarChartHorizontal } from 'lucide-react';
 
 const ProfileSidebar = () => {
   const { user } = useAuth();

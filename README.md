@@ -1,4 +1,4 @@
-# ConnectU - A Mini LinkedIn Platform
+# A Mini LinkedIn Platform
 
 A modern, full-stack social community platform built with Next.js and MongoDB.
 
@@ -56,8 +56,8 @@ Follow these instructions to set up and run the project locally.
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
-    cd YOUR_REPO_NAME
+    git clone https://github.com/Mithun-AM/Linkedin-mini.git
+    cd Linkedin-mini
     ```
 
 2.  **Install dependencies:**

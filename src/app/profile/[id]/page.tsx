@@ -5,8 +5,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import PostCard from '@/app/components/home/PostCard'; // Reuse the PostCard component
-import Spinner from '@/app/components/ui/Spinner';
-import { Mail, Edit, MapPin } from 'lucide-react';
+import { Edit } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '~/lib/api';
 
@@ -81,8 +80,12 @@ export default function ProfilePage() {
         const data = await res.json();
         setUser(data.user);
 
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong.');
+      } catch (error) { // 'error' is now 'unknown'
+        let errorMessage = 'Something went wrong.';
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+        setError(errorMessage);
       } finally {
         setIsLoading(false);
       }
@@ -106,8 +109,12 @@ export default function ProfilePage() {
       setUser(currentUser => currentUser ? { ...currentUser, ...result.user } : null);
       toast.success('Profile updated!');
       setIsModalOpen(false);
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to update profile.');
+    } catch (error) { // 'error' is now 'unknown'
+      let errorMessage = 'Failed to update profile.';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast.error(errorMessage);
     } finally {
       setIsSaving(false);
     }
@@ -119,34 +126,34 @@ export default function ProfilePage() {
 
   return (
     <div className="space-y-6">
-{/* ✨ NEW: A cleaner, minimalist Profile Header */}
-<div className="card p-6 sm:p-8">
-  <div className="flex flex-col sm:flex-row items-center gap-6">
-    
-    {/* Avatar */}
-    <div className="w-32 h-32 rounded-full bg-slate-100 flex-shrink-0">
-      <div className="w-full h-full flex items-center justify-center text-6xl font-bold text-indigo-600">
-        {user.name.charAt(0).toUpperCase()}
-      </div>
-    </div>
-    
-    {/* User Info & Action Button */}
-    <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-      <h1 className="text-4xl font-bold text-slate-900">{user.name}</h1>
-      <p className="text-lg text-slate-600 mt-1">{user.bio}</p>
-      
-      {isOwner && (
-        <button
-          onClick={handleOpenModal}
-          className="btn-primary flex items-center justify-center gap-2 w-auto px-4 py-2 mt-4"
-        >
-          <Edit size={16} /> Edit Profile
-        </button>
-      )}
-    </div>
+      {/* ✨ NEW: A cleaner, minimalist Profile Header */}
+      <div className="card p-6 sm:p-8">
+        <div className="flex flex-col sm:flex-row items-center gap-6">
 
-  </div>
-</div>
+          {/* Avatar */}
+          <div className="w-32 h-32 rounded-full bg-slate-100 flex-shrink-0">
+            <div className="w-full h-full flex items-center justify-center text-6xl font-bold text-indigo-600">
+              {user.name.charAt(0).toUpperCase()}
+            </div>
+          </div>
+
+          {/* User Info & Action Button */}
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h1 className="text-4xl font-bold text-slate-900">{user.name}</h1>
+            <p className="text-lg text-slate-600 mt-1">{user.bio}</p>
+
+            {isOwner && (
+              <button
+                onClick={handleOpenModal}
+                className="btn-primary flex items-center justify-center gap-2 w-auto px-4 py-2 mt-4"
+              >
+                <Edit size={16} /> Edit Profile
+              </button>
+            )}
+          </div>
+
+        </div>
+      </div>
       {isModalOpen && (
         <div className="fixed inset-0 backdrop-blur-md bg-white/10 flex items-center justify-center z-50 p-4">
           <div className="card w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>

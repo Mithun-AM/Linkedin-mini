@@ -31,20 +31,24 @@ const Feed = ({ updateTrigger }: FeedProps) => {
       try {
         setLoading(true);
         setError(null);
-        // The /posts/feed route is public, so we can use a direct fetch
         const response = await fetch('/api/posts/feed');
-        if(!response.ok) throw new Error("Failed to fetch feed");
+        if (!response.ok) throw new Error("Failed to fetch feed");
         const data = await response.json();
         setPosts(data);
-      } catch (err: any) {
-        setError(err.message || 'Could not load the feed.');
+      } catch (error) { // ✨ FIX: 'error' is now treated as 'unknown'
+        // Safely check if it's a real Error object before using its message.
+        let errorMessage = 'Could not load the feed.';
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
     };
 
     fetchPosts();
-  }, [updateTrigger]); // Re-run the effect when updateTrigger changes
+  }, [updateTrigger]);
 
   if (loading) {
     return <Spinner />;
