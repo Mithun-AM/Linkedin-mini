@@ -3,8 +3,8 @@
 A modern, full-stack social community platform built with Next.js and MongoDB.
 
 <p align="center">
-  <a href="YOUR_LIVE_DEMO_URL" target="_blank">
-    <strong>🚀 View Live Demo</strong>
+  <a href="https://linkedin-mini-zeta.vercel.app/" target="_blank">
+    <strong>View Live Demo</strong>
   </a>
 </p>
 
