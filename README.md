@@ -35,7 +35,7 @@ To demonstrate advanced skills and a focus on user experience, several extra fea
 
 The project leverages a modern, MERN-based stack for performance and scalability.
 
--   **Frontend**: Next.js 14 (App Router) & React 18
+-   **Frontend**: Next.js (App Router) & React 18
 -   **Backend**: Node.js via Next.js API Routes
 -   **Database**: MongoDB with Mongoose ODM
 -   **Styling**: Tailwind CSS
