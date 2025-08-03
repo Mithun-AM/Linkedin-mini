@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ConnectU - A Mini LinkedIn Platform
+
+A modern, full-stack social community platform built with Next.js and MongoDB.
+
+<p align="center">
+  <a href="YOUR_LIVE_DEMO_URL" target="_blank">
+    <strong>🚀 View Live Demo</strong>
+  </a>
+</p>
+
+---
+
+## Core Features
+
+This platform includes all the required features for a mini LinkedIn-like community:
+
+-   **Secure User Authentication**: Complete JWT-based authentication system with registration and login.
+-   **Dynamic User Profiles**: Users can view profiles that display personal information (name, bio) and a feed of their own posts.
+-   **Public Post Feed**: A central feed where all user posts are displayed chronologically, showing the author's name and a timestamp.
+-   **Post Creation**: Authenticated users can create and publish new text-only posts to the public feed.
+
+## Extra Features & Enhancements
+
+To demonstrate advanced skills and a focus on user experience, several extra features were implemented:
+
+-   **Modern & Responsive UI**: The interface was built from the ground up with Tailwind CSS for a clean, professional, and fully responsive experience on all devices.
+-   **In-Place Profile Editing**: Users can edit their own profile information (name and bio) seamlessly through a pop-up modal without leaving the page.
+-   **Responsive Navigation**: Includes a polished hamburger menu for a smooth user experience on mobile and tablet devices.
+-   **Optimistic UI Feedback**: Features skeleton loaders during data fetching and toast notifications for user actions (login, post creation, profile updates) to provide clear and immediate feedback.
+-   **Secure API Design**: Backend API routes are protected using middleware, and security best practices are followed, such as server-side validation and preventing users from editing others' profiles.
+-   **Professional Layouts**: UI elements like profile banners, overlaid avatars, and consistent card designs create a cohesive and visually appealing application.
+
+## Tech Stack
+
+The project leverages a modern, MERN-based stack for performance and scalability.
+
+-   **Frontend**: Next.js 14 (App Router) & React 18
+-   **Backend**: Node.js via Next.js API Routes
+-   **Database**: MongoDB with Mongoose ODM
+-   **Styling**: Tailwind CSS
+-   **UI Feedback**: `react-hot-toast`
+-   **Icons**: `lucide-react`
+-   **Authentication**: JSON Web Tokens (JWT)
+-   **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+Follow these instructions to set up and run the project locally.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   Node.js (v18.x or later)
+-   A MongoDB Atlas account or a local MongoDB instance.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Local Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
+    cd YOUR_REPO_NAME
+    ```
 
-## Learn More
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+3.  **Set up environment variables:**
+    Create a `.env.local` file in the root of the project and add the following variables:
+    ```env
+    MONGODB_URI="your_mongodb_connection_string"
+    JWT_SECRET="your_super_secret_jwt_key_that_is_long_and_random"
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔑 Demo Account
 
-## Deploy on Vercel
+For easy testing and review of the live demo, please use the following credentials:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   **Email**: `demo@example.com`
+-   **Password**: `demopassword123`
